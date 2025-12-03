@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - {{ order.order_number }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+    <style>
+        @media print {
+            .no-print { display: none; }
+            body { margin: 0; padding: 20px; }
+        }
+        .invoice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #2c3e50;
+        }
+        .invoice-title {
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+        .invoice-info {
+            text-align: right;
+        }
+        .invoice-section {
+            margin-bottom: 2rem;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .invoice-table th,
+        .invoice-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .invoice-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .invoice-total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="no-print" style="margin-bottom: 2rem; text-align: center;">
+            <button onclick="window.print()" class="btn-primary">Print Invoice</button>
+            <a href="{% url 'orders:order_detail' order.order_number %}" class="btn-secondary">Back to Order</a>
+        </div>
+
+        <div class="invoice-header">
+            <div>
+                <h1 class="invoice-title">INVOICE</h1>
+                <p><strong>PyKart E-Commerce</strong></p>
+            </div>
+            <div class="invoice-info">
+                <p><strong>Invoice #:</strong> {{ order.order_number }}</p>
+                <p><strong>Date:</strong> {{ order.created_at|date:"F d, Y" }}</p>
+                <p><strong>Order Status:</strong> {{ order.get_status_display }}</p>
+            </div>
+        </div>
+
+        <div class="invoice-section">
+            <h3>Bill To:</h3>
+            <p><strong>{{ order.shipping_name }}</strong></p>
+            <p>{{ order.shipping_address_line1 }}</p>
+            {% if order.shipping_address_line2 %}
+            <p>{{ order.shipping_address_line2 }}</p>
+            {% endif %}
+            <p>{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_postal_code }}</p>
+            <p>{{ order.shipping_country }}</p>
+            <p>Phone: {{ order.shipping_phone }}</p>
+        </div>
+
+        <div class="invoice-section">
+            <h3>Order Items:</h3>
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th class="text-right">Price</th>
+                        <th class="text-right">Quantity</th>
+                        <th class="text-right">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <td>{{ item.product_name }}</td>
+                        <td class="text-right">₹{{ item.product_price|floatformat:2 }}</td>
+                        <td class="text-right">{{ item.quantity }}</td>
+                        <td class="text-right">₹{{ item.subtotal|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="invoice-section invoice-total">
+            <table class="invoice-table" style="width: 300px; margin-left: auto;">
+                <tr>
+                    <td><strong>Subtotal:</strong></td>
+                    <td class="text-right">₹{{ order.subtotal|floatformat:2 }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tax:</strong></td>
+                    <td class="text-right">₹{{ order.tax|floatformat:2 }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Shipping:</strong></td>
+                    <td class="text-right">₹{{ order.shipping_cost|floatformat:2 }}</td>
+                </tr>
+                <tr style="font-size: 1.2rem; font-weight: bold;">
+                    <td><strong>Total:</strong></td>
+                    <td class="text-right">₹{{ order.total|floatformat:2 }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="invoice-section" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #dee2e6;">
+            <p><strong>Payment Status:</strong> {{ order.get_payment_status_display }}</p>
+            <p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+            <p style="margin-top: 2rem; color: #666; font-size: 0.9rem;">
+                Thank you for your business!
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,114 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Order {{ order.order_number }} - PyKart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumb">
+        <a href="{% url 'store:home' %}">Home</a> / 
+        <a href="{% url 'orders:order_history' %}">Order History</a> / 
+        <span>Order {{ order.order_number }}</span>
+    </div>
+
+    <div class="order-detail-header">
+        <h1>Order #{{ order.order_number }}</h1>
+        <div class="order-status-header">
+            <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+            <span class="payment-badge payment-{{ order.payment_status }}">{{ order.get_payment_status_display }}</span>
+        </div>
+    </div>
+
+    <div class="order-detail-container">
+        <div class="order-detail-main">
+            <div class="detail-section">
+                <h2>Order Items</h2>
+                <table class="order-items-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items.all %}
+                        <tr>
+                            <td>
+                                <div class="order-item-detail">
+                                    {% if item.product and item.product.main_image %}
+                                        <img src="{{ item.product.main_image.url }}" alt="{{ item.product_name }}" class="item-image">
+                                    {% endif %}
+                                    <div>
+                                        <strong>{{ item.product_name }}</strong>
+                                        {% if item.product %}
+                                            <a href="{% url 'store:product_detail' item.product.slug %}" class="view-product-link">View Product</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>₹{{ item.product_price|floatformat:2 }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>₹{{ item.subtotal|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="order-detail-sidebar">
+            <div class="detail-card">
+                <h2>Shipping Address</h2>
+                <div class="address-detail">
+                    <p><strong>{{ order.shipping_name }}</strong></p>
+                    <p>{{ order.shipping_address_line1 }}</p>
+                    {% if order.shipping_address_line2 %}
+                    <p>{{ order.shipping_address_line2 }}</p>
+                    {% endif %}
+                    <p>{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_postal_code }}</p>
+                    <p>{{ order.shipping_country }}</p>
+                    <p>Phone: {{ order.shipping_phone }}</p>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h2>Order Summary</h2>
+                <div class="summary-detail">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span>₹{{ order.subtotal|floatformat:2 }}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax:</span>
+                        <span>₹{{ order.tax|floatformat:2 }}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span>₹{{ order.shipping_cost|floatformat:2 }}</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span>₹{{ order.total|floatformat:2 }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h2>Order Information</h2>
+                <div class="info-detail">
+                    <p><strong>Order Date:</strong> {{ order.created_at|date:"F d, Y g:i A" }}</p>
+                    <p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+                </div>
+            </div>
+
+            <div class="detail-actions">
+                <a href="{% url 'orders:invoice' order.order_number %}" class="btn-primary btn-full">Download Invoice</a>
+                <a href="{% url 'orders:order_history' %}" class="btn-secondary btn-full">Back to Orders</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,38 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Home - PyKart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="hero">
+        <h1>Welcome to PyKart</h1>
+        <p>Your one-stop shop for all your needs</p>
+    </section>
+
+    <section class="categories">
+        <h2>Shop by Category</h2>
+        <div class="category-grid">
+            {% for category in categories %}
+            <div class="category-card">
+                <a href="{% url 'store:category_products' category.slug %}">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}" class="category-image">
+                    {% else %}
+                        <div class="category-placeholder">
+                            <span>No Image</span>
+                        </div>
+                    {% endif %}
+                    <div class="category-info">
+                        <h3>{{ category.name }}</h3>
+                    </div>
+                </a>
+            </div>
+            {% empty %}
+            <p class="no-items">No categories available yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
+

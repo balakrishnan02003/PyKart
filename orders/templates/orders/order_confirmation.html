@@ -1,0 +1,42 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Order Confirmation - PyKart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="confirmation-container">
+        <div class="confirmation-card">
+            <div class="success-icon">✓</div>
+            <h1>Order Placed Successfully!</h1>
+            <p class="order-number">Order Number: <strong>{{ order.order_number }}</strong></p>
+            <p class="confirmation-message">Thank you for your purchase! Your order has been received and is being processed.</p>
+            
+            <div class="order-summary-box">
+                <h3>Order Summary</h3>
+                <div class="summary-info">
+                    <div class="info-row">
+                        <span>Total Amount:</span>
+                        <span class="total-amount">₹{{ order.total|floatformat:2 }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Payment Status:</span>
+                        <span class="status-badge paid">Paid</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Order Status:</span>
+                        <span class="status-badge">{{ order.get_status_display }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="confirmation-actions">
+                <a href="{% url 'orders:order_detail' order.order_number %}" class="btn-primary">View Order Details</a>
+                <a href="{% url 'orders:invoice' order.order_number %}" class="btn-secondary">Download Invoice</a>
+                <a href="{% url 'store:home' %}" class="btn-continue">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

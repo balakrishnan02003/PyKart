@@ -1,0 +1,49 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}{{ category.name }} - PyKart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumb">
+        <a href="{% url 'store:home' %}">Home</a> / <span>{{ category.name }}</span>
+    </div>
+
+    <h1 class="page-title">{{ category.name }}</h1>
+
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <a href="{% url 'store:product_detail' product.slug %}">
+                {% if product.main_image %}
+                    <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="product-image">
+                {% else %}
+                    <div class="product-placeholder">
+                        <span>No Image</span>
+                    </div>
+                {% endif %}
+                <div class="product-info">
+                    <h3 class="product-name">{{ product.name }}</h3>
+                    <p class="product-price">₹{{ product.price }}</p>
+                    {% if product.stock > 0 %}
+                        <span class="stock-status in-stock">In Stock</span>
+                    {% else %}
+                        <span class="stock-status out-of-stock">Out of Stock</span>
+                    {% endif %}
+                </div>
+            </a>
+            {% if product.stock > 0 %}
+                <button class="btn-add-cart" data-product-id="{{ product.id }}" data-product-slug="{{ product.slug }}">
+                    Add to Cart
+                </button>
+            {% else %}
+                <button class="btn-add-cart" disabled>Out of Stock</button>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p class="no-items">No products available in this category.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,102 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} - PyKart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumb">
+        <a href="{% url 'store:home' %}">Home</a> / 
+        <a href="{% url 'store:category_products' product.category.slug %}">{{ product.category.name }}</a> / 
+        <span>{{ product.name }}</span>
+    </div>
+
+    <div class="product-detail">
+        <div class="product-images">
+            {% if product.main_image %}
+                <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="main-product-image" id="main-image">
+            {% else %}
+                <div class="product-placeholder large">
+                    <span>No Image</span>
+                </div>
+            {% endif %}
+            
+            {% if product.images.all %}
+            <div class="product-thumbnails">
+                {% for image in product.images.all %}
+                    <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}" 
+                         class="thumbnail" onclick="changeMainImage('{{ image.image.url }}')">
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="product-info-detail">
+            <h1 class="product-title">{{ product.name }}</h1>
+            <p class="product-price-large">₹{{ product.price }}</p>
+            
+            {% if product.stock > 0 %}
+                <p class="stock-status in-stock">In Stock ({{ product.stock }} available)</p>
+            {% else %}
+                <p class="stock-status out-of-stock">Out of Stock</p>
+            {% endif %}
+
+            <div class="product-description">
+                <h3>Description</h3>
+                <p>{{ product.description|default:"No description available." }}</p>
+            </div>
+
+            <div class="product-actions">
+                {% if product.stock > 0 %}
+                    <div class="quantity-selector">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ product.stock }}">
+                    </div>
+                    <button class="btn-add-cart-large" data-product-id="{{ product.id }}" data-product-slug="{{ product.slug }}">
+                        Add to Cart
+                    </button>
+                {% else %}
+                    <button class="btn-add-cart-large" disabled>Out of Stock</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if related_products %}
+    <section class="related-products">
+        <h2>Related Products</h2>
+        <div class="products-grid">
+            {% for related_product in related_products %}
+            <div class="product-card">
+                <a href="{% url 'store:product_detail' related_product.slug %}">
+                    {% if related_product.main_image %}
+                        <img src="{{ related_product.main_image.url }}" alt="{{ related_product.name }}" class="product-image">
+                    {% else %}
+                        <div class="product-placeholder">
+                            <span>No Image</span>
+                        </div>
+                    {% endif %}
+                    <div class="product-info">
+                        <h3 class="product-name">{{ related_product.name }}</h3>
+                        <p class="product-price">₹{{ related_product.price }}</p>
+                    </div>
+                </a>
+                {% if related_product.stock > 0 %}
+                    <button class="btn-add-cart" data-product-id="{{ related_product.id }}" data-product-slug="{{ related_product.slug }}">
+                        Add to Cart
+                    </button>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+
+<script>
+function changeMainImage(imageUrl) {
+    document.getElementById('main-image').src = imageUrl;
+}
+</script>
+{% endblock %}
+

@@ -1,0 +1,65 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Order History - PyKart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumb">
+        <a href="{% url 'store:home' %}">Home</a> / 
+        <a href="{% url 'accounts:profile' %}">Profile</a> / 
+        <span>Order History</span>
+    </div>
+
+    <h1 class="page-title">Order History</h1>
+
+    {% if orders %}
+    <div class="orders-list">
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="order-header">
+                <div class="order-info">
+                    <h3>Order #{{ order.order_number }}</h3>
+                    <p class="order-date">Placed on {{ order.created_at|date:"F d, Y" }}</p>
+                </div>
+                <div class="order-status">
+                    <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+                    <span class="payment-badge payment-{{ order.payment_status }}">{{ order.get_payment_status_display }}</span>
+                </div>
+            </div>
+            
+            <div class="order-items-preview">
+                {% for item in order.items.all|slice:":3" %}
+                <div class="order-item-preview">
+                    {% if item.product and item.product.main_image %}
+                        <img src="{{ item.product.main_image.url }}" alt="{{ item.product_name }}" class="preview-image">
+                    {% endif %}
+                    <span>{{ item.product_name }} (x{{ item.quantity }})</span>
+                </div>
+                {% endfor %}
+                {% if order.items.count > 3 %}
+                <p class="more-items">+ {{ order.items.count|add:"-3" }} more item(s)</p>
+                {% endif %}
+            </div>
+            
+            <div class="order-footer">
+                <div class="order-total">
+                    <strong>Total: ₹{{ order.total|floatformat:2 }}</strong>
+                </div>
+                <div class="order-actions">
+                    <a href="{% url 'orders:order_detail' order.order_number %}" class="btn-view">View Details</a>
+                    <a href="{% url 'orders:invoice' order.order_number %}" class="btn-invoice">Invoice</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>You haven't placed any orders yet.</p>
+        <a href="{% url 'store:home' %}" class="btn-primary">Start Shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+

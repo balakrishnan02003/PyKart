@@ -1,0 +1,258 @@
+[
+  {
+    "model": "store.category",
+    "pk": 1,
+    "fields": {
+      "name": "Electronics",
+      "slug": "electronics",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.category",
+    "pk": 2,
+    "fields": {
+      "name": "Fashion",
+      "slug": "fashion",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.category",
+    "pk": 3,
+    "fields": {
+      "name": "Home Appliances",
+      "slug": "home-appliances",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 1,
+    "fields": {
+      "name": "Wireless Bluetooth Headphones",
+      "slug": "wireless-bluetooth-headphones",
+      "price": "79.99",
+      "stock": 50,
+      "description": "High-quality wireless headphones with noise cancellation and 30-hour battery life.",
+      "category": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 2,
+    "fields": {
+      "name": "Smartphone 128GB",
+      "slug": "smartphone-128gb",
+      "price": "599.99",
+      "stock": 30,
+      "description": "Latest smartphone with 128GB storage, 6.5 inch display, and triple camera system.",
+      "category": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 3,
+    "fields": {
+      "name": "Laptop 15.6 inch",
+      "slug": "laptop-15-6-inch",
+      "price": "899.99",
+      "stock": 20,
+      "description": "Powerful laptop with Intel i7 processor, 16GB RAM, and 512GB SSD.",
+      "category": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 4,
+    "fields": {
+      "name": "Smart Watch",
+      "slug": "smart-watch",
+      "price": "249.99",
+      "stock": 40,
+      "description": "Feature-rich smartwatch with fitness tracking, heart rate monitor, and GPS.",
+      "category": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 5,
+    "fields": {
+      "name": "Wireless Mouse",
+      "slug": "wireless-mouse",
+      "price": "29.99",
+      "stock": 100,
+      "description": "Ergonomic wireless mouse with long battery life and precise tracking.",
+      "category": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 6,
+    "fields": {
+      "name": "Cotton T-Shirt",
+      "slug": "cotton-t-shirt",
+      "price": "19.99",
+      "stock": 150,
+      "description": "Comfortable 100% cotton t-shirt available in multiple colors and sizes.",
+      "category": 2,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 7,
+    "fields": {
+      "name": "Denim Jeans",
+      "slug": "denim-jeans",
+      "price": "49.99",
+      "stock": 80,
+      "description": "Classic fit denim jeans with stretch for comfort and durability.",
+      "category": 2,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 8,
+    "fields": {
+      "name": "Running Shoes",
+      "slug": "running-shoes",
+      "price": "89.99",
+      "stock": 60,
+      "description": "Lightweight running shoes with cushioned sole and breathable mesh upper.",
+      "category": 2,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 9,
+    "fields": {
+      "name": "Leather Jacket",
+      "slug": "leather-jacket",
+      "price": "199.99",
+      "stock": 25,
+      "description": "Genuine leather jacket with classic design and comfortable fit.",
+      "category": 2,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 10,
+    "fields": {
+      "name": "Summer Dress",
+      "slug": "summer-dress",
+      "price": "39.99",
+      "stock": 45,
+      "description": "Light and airy summer dress perfect for warm weather occasions.",
+      "category": 2,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 11,
+    "fields": {
+      "name": "Coffee Maker",
+      "slug": "coffee-maker",
+      "price": "79.99",
+      "stock": 35,
+      "description": "Programmable coffee maker with 12-cup capacity and auto-shutoff feature.",
+      "category": 3,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 12,
+    "fields": {
+      "name": "Microwave Oven",
+      "slug": "microwave-oven",
+      "price": "149.99",
+      "stock": 28,
+      "description": "Compact microwave oven with multiple cooking modes and defrost function.",
+      "category": 3,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 13,
+    "fields": {
+      "name": "Vacuum Cleaner",
+      "slug": "vacuum-cleaner",
+      "price": "199.99",
+      "stock": 22,
+      "description": "Powerful bagless vacuum cleaner with HEPA filter and multiple attachments.",
+      "category": 3,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 14,
+    "fields": {
+      "name": "Washing Machine",
+      "slug": "washing-machine",
+      "price": "599.99",
+      "stock": 15,
+      "description": "Front-loading washing machine with energy-efficient design and multiple wash cycles.",
+      "category": 3,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 15,
+    "fields": {
+      "name": "Air Fryer",
+      "slug": "air-fryer",
+      "price": "89.99",
+      "stock": 40,
+      "description": "Digital air fryer with large capacity and multiple cooking presets for healthy frying.",
+      "category": 3,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]
+

@@ -1,0 +1,51 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}My Profile - PyKart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumb">
+        <a href="{% url 'store:home' %}">Home</a> / <span>My Profile</span>
+    </div>
+
+    <h1 class="page-title">My Profile</h1>
+
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <div class="profile-menu">
+                <a href="{% url 'accounts:profile' %}" class="menu-item active">Profile</a>
+                <a href="{% url 'accounts:address_list' %}" class="menu-item">Addresses</a>
+                <a href="{% url 'orders:order_history' %}" class="menu-item">Orders</a>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-card">
+                <h2>Account Information</h2>
+                <div class="profile-info">
+                    <div class="info-row">
+                        <span class="info-label">Username:</span>
+                        <span class="info-value">{{ user.username }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">{{ user.email }}</span>
+                    </div>
+                    {% if user.first_name or user.last_name %}
+                    <div class="info-row">
+                        <span class="info-label">Full Name:</span>
+                        <span class="info-value">{{ user.get_full_name }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="info-row">
+                        <span class="info-label">Member Since:</span>
+                        <span class="info-value">{{ user.date_joined|date:"F d, Y" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
