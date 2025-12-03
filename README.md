@@ -19,7 +19,7 @@ A Django-based e-commerce platform with a modern frontend.
 - Stock management
 - Product activation/deactivation
 
-## Next Steps
+## Implemented Apps
 
 The following apps will be implemented:
 - **cart**: Shopping cart functionality
